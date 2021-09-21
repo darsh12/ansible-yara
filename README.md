@@ -1,7 +1,6 @@
-[![Molecule Test](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml/badge.svg)](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml)
-
 Ansible Role: Yara
 =========
+[![Molecule Test](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml/badge.svg)](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml)
 
 Build the latest version of yara from source. Yara helps in identifying and classifying malware. 
 The main motivation was to configure it on Wazuh agents
