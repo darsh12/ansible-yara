@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Yara With All Modules"
+      include_role:
+        name: "yara"
+      vars:
+        enable_ssl: true
+        enable_cuckoo: true
+        enable_magic: true
+        enable_dotnet: true

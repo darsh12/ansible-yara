@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Yara With dotnet Module"
+      include_role:
+        name: "yara"
+        vars:
+          enable_dotnet: true

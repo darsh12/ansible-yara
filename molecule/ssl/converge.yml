@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Yara With No Modules"
+      include_role:
+        name: "yara"
+        vars:
+          enable_ssl: true

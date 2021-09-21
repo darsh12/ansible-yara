@@ -1,0 +1,21 @@
+---
+- name: Install OpenSSL Packages
+  apt:
+    name: "{{ openssl_packages }}"
+    state: present
+  when: enable_ssl
+  become: yes
+
+- name: Install Cuckoo Packages
+  apt:
+    name: "{{ cuckoo_packages }}"
+    state: present
+  when: enable_cuckoo
+  become: yes
+
+- name: Install Magic Packages
+  apt:
+    name: "{{ magic_packages }}"
+    state: present
+  when: enable_magic
+  become: yes

@@ -1,0 +1,71 @@
+---
+- name: Install Unzip
+  apt:
+    update_cache: yes
+    name: zip
+    state: present
+
+- name: Get Latest Yara Release
+  uri:
+    url: https://api.github.com/repos/VirusTotal/yara/releases/latest
+  register: yara_release
+
+- name: Download Yara Release
+  get_url:
+    url: "https://github.com/VirusTotal/yara/archive/refs/tags/{{ yara_release.json.tag_name }}.zip"
+    dest: /tmp/yara.zip
+
+- name: Unzip Release
+  unarchive:
+    src: /tmp/yara.zip
+    dest: /tmp
+    remote_src: yes
+    creates: "yara-{{ yara_release.json.tag_name | regex_replace('v') }}"
+  register: yara_folder
+  changed_when: false
+
+
+- name: Install Required Packages
+  apt:
+    name: "{{ required_packages }}"
+    state: present
+  become: yes
+
+- name: Install Module Dependent Packages
+  include_tasks: module_packages.yml
+
+- name: Run Bootstrap
+  command:
+    chdir: "/tmp/yara-{{ yara_release.json.tag_name | regex_replace('v') }}"
+    cmd: ./bootstrap.sh
+  changed_when: false
+
+
+- name: Include Configure Role
+  include_tasks: configure_modules.yml
+
+
+- name: Run Makefile
+  make:
+    chdir: "/tmp/yara-{{ yara_release.json.tag_name | regex_replace('v') }}"
+
+- name: Install Makefile
+  make:
+    chdir: "/tmp/yara-{{ yara_release.json.tag_name | regex_replace('v') }}"
+    target: install
+  changed_when: false
+  become: yes
+
+- name: Verify Makefile
+  make:
+    chdir: "/tmp/yara-{{ yara_release.json.tag_name | regex_replace('v') }}"
+    target: check
+  register: verify_make
+  failed_when: "'ERROR: 0' not in verify_make.stdout"
+  changed_when: false
+  become: yes
+
+- name: Ensure libyara Is Configured
+  command: ldconfig
+  become: yes
+  changed_when: false

@@ -1,0 +1,16 @@
+---
+required_packages:
+  - automake
+  - libtool
+  - make
+  - gcc
+  - pkg-config
+
+openssl_packages:
+  - libssl-dev
+
+cuckoo_packages:
+  - libjansson-dev
+
+magic_packages:
+  - libmagic-dev
