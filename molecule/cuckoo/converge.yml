@@ -5,5 +5,5 @@
     - name: "Yara With cuckoo Module"
       include_role:
         name: "yara"
-        vars:
-          enable_cuckoo: true
+      vars:
+        enable_cuckoo: true
