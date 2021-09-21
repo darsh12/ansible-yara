@@ -1,0 +1,45 @@
+---
+name: Molecule Test
+'on':
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "17 2 * * 5"
+
+defaults:
+  run:
+    working-directory: 'yara'
+
+jobs:
+
+  lint:
+    name: CI
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - ubuntu2004
+          - debian10
+
+    steps:
+      - name: Checkout the code base
+        uses: actions/checkout@v2
+        with:
+          path: 'yara'
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip3 install "molecule[docker]" yamllint ansible-lint ansible docker
+
+      - name: Run Molecule Test
+        run: molecule test --all --parallel
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
