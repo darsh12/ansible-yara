@@ -1,3 +1,5 @@
+![Molecule Test](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml/badge.svg)
+
 Ansible Role: Yara
 =========
 
