@@ -1,4 +1,4 @@
-![Molecule Test](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml/badge.svg)
+[![Molecule Test](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml/badge.svg)](https://github.com/darsh12/ansible-yara/actions/workflows/ci.yml)
 
 Ansible Role: Yara
 =========
