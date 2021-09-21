@@ -32,7 +32,7 @@
   become: yes
 
 - name: Install Module Dependent Packages
-  include_tasks: module_packages.yml
+  include_tasks: package_modules.yml
 
 - name: Run Bootstrap
   command:
