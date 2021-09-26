@@ -5,6 +5,8 @@ name: Molecule Test
   push:
     branches:
       - main
+    paths-ignore:
+      - '**/README.md'
   schedule:
     - cron: "17 2 * * 5"
 
@@ -14,7 +16,7 @@ defaults:
 
 jobs:
 
-  lint:
+  release:
     name: CI
     runs-on: ubuntu-latest
     strategy:
