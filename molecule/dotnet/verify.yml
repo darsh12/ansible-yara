@@ -8,4 +8,4 @@
     command:
       cmd: /usr/local/bin/yara -v
     register: yara_version
-    changed_when: "'4' in yara_version.stdout"
+    changed_when: "'4.1' in yara_version.stdout"
