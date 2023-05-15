@@ -22,8 +22,8 @@ jobs:
     strategy:
       matrix:
         distro:
-          - ubuntu2004
-          - debian10
+          - ubuntu2204
+          - debian11
 
     steps:
       - name: Checkout the code base
@@ -37,7 +37,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip3 install "molecule[docker]" yamllint ansible-lint ansible docker
+        run: pip3 install "molecule-plugins[docker]" yamllint ansible-lint ansible docker
 
       - name: Run Molecule Test
         run: molecule test --all --parallel
