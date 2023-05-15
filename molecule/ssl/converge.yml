@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Yara With No Modules"
+    - name: "Yara With SSL"
       include_role:
         name: "yara"
       vars:

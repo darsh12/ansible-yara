@@ -40,10 +40,15 @@
     cmd: ./bootstrap.sh
   changed_when: false
 
-
-- name: Include Configure Role
-  include_tasks: configure_modules.yml
-
+- name: Run configure command with appropriate flags
+  ansible.builtin.shell:
+    chdir: "/tmp/yara-{{ yara_release.json.tag_name | regex_replace('v') }}"
+    cmd: >
+      ./configure
+      {{ ' --with-crypto' if enable_ssl }}
+      {{ ' --enable-cuckoo' if enable_cuckoo }}
+      {{ ' --enable-magic' if enable_magic }}
+      {{ ' --enable-dotnet' if enable_dotnet }}
 
 - name: Run Makefile
   make:
