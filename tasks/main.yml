@@ -4,6 +4,7 @@
     update_cache: yes
     name: zip
     state: present
+  become: yes
 
 - name: Get Latest Yara Release
   uri:
