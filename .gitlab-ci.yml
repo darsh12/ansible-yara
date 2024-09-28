@@ -1,0 +1,33 @@
+default:
+  image: $CI_REGISTRY/docker/ansible:latest
+  services:
+    - name: docker:dind
+      alias: dockersvc
+      command: [ "--tls=false" ]
+
+stages:
+  - test
+
+before_script:
+  - docker info
+
+variables:
+  DOCKER_HOST: tcp://dockersvc:2375/
+  DOCKER_TLS_CERTDIR: ""
+  PY_COLORS: '1'
+  ANSIBLE_FORCE_COLOR: '1'
+
+.molecule_test_defaults: &molecule_test_defaults
+  stage: test
+  script:
+    - molecule test --all --parallel
+
+molecule_test_ubuntu:
+  <<: *molecule_test_defaults
+  variables:
+    MOLECULE_DISTRO: ubuntu2204
+  only:
+    changes:
+      - main
+      - "**/*"
+
