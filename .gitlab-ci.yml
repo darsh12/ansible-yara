@@ -7,6 +7,7 @@ default:
 
 stages:
   - test
+  - deploy
 
 before_script:
   - docker info
@@ -31,3 +32,10 @@ molecule_test_ubuntu:
       - main
       - "**/*"
 
+deploy:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - ansible-galaxy role import --api-key "$GALAXY_API_KEY" "$GALAXY_USER" "$CI_PROJECT_NAME"
+  
